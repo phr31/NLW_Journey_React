@@ -1,4 +1,4 @@
-import { FormEvent, React, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import {
   MapPin,
   Calendar,
