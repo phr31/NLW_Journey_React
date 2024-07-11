@@ -5,11 +5,15 @@ import Button from '../../components/button.tsx';
 interface ConfirmTripModalProps {
   closeTripModal: () => void;
   createTrip: (event: FormEvent<HTMLFormElement>) => void;
+  setOwnerEmail: (email: string) => void;
+  setOwnerName: (name: string) => void;
 }
 
 const ConfirmTripModal = ({
   closeTripModal,
   createTrip,
+  setOwnerEmail,
+  setOwnerName,
 }: ConfirmTripModalProps) => {
   return (
     <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
@@ -35,10 +39,11 @@ const ConfirmTripModal = ({
             preencha seus dados abaixo:
           </p>
         </div>
-        <form className="space-y-3">
+        <form onSubmit={createTrip} className="space-y-3">
           <div className="py-2.5 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
             <User className="text-zinc-400 size-5" />
             <input
+              onChange={(event) => setOwnerName(event.target.value)}
               type="text"
               name="text"
               placeholder="Seu nome completo"
@@ -48,21 +53,17 @@ const ConfirmTripModal = ({
           <div className="py-2.5 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
             <Mail className="text-zinc-400 size-5" />
             <input
+              onChange={(event) => setOwnerEmail(event.target.value)}
               type="email"
               name="email"
               placeholder="Seu e-mail pessoal"
               className="bg-transparent text-lg placeholder-zinc-400 outline-none flex-1"
             />
           </div>
+          <Button variant="primary" size="full" type="submit">
+            Confirmar criação da viagem
+          </Button>
         </form>
-        <Button
-          variant="primary"
-          size="full"
-          type="submit"
-          onClick={createTrip}
-        >
-          Confirmar criação da viagem
-        </Button>
       </div>
     </div>
   );

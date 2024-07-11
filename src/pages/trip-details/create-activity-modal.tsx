@@ -1,5 +1,4 @@
 import { Calendar, Clock, Tag, X } from 'lucide-react';
-import React from 'react';
 import Button from '../../components/button.tsx';
 
 interface CreateActivityModalProps {
