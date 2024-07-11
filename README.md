@@ -13,4 +13,4 @@ npm install
 npm run dev
 ```
 
-Acesse http://localhost:5173 para visualizar a aplicação.
+Acesse https://phr31.github.io/NLW_Journey_React/ para visualizar a aplicação.
