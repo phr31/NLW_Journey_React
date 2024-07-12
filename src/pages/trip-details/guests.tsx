@@ -1,7 +1,6 @@
 import {
   CircleCheck,
   CircleDashed,
-  CircleDotDashed,
   UserCog,
 } from 'lucide-react';
 import Button from '../../components/button.tsx';

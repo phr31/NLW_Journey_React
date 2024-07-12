@@ -12,7 +12,7 @@ function CreateTripPage() {
 
   const [isGuestInputOpen, setIsGuestInputOpen] = useState(false);
   const [isGuestModalOpen, setIsGuestModalOpen] = useState(false);
-  const [emailsToInvite, setEmailsToInvite] = useState([] as any);
+  const [emailsToInvite, setEmailsToInvite] = useState(['']);
 
   const [destination, setDestination] = useState('');
   const [ownerName, setOwnerName] = useState('');
@@ -58,40 +58,33 @@ function CreateTripPage() {
     setEmailsToInvite(newEmailList);
   }
   async function createTrip(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!destination) {
+      return;
+    }
+    if (!range?.from || !range?.to) {
+      return;
+    }
+    if (emailsToInvite.length === 0) {
+      return;
+    }
+    if (!ownerName || !ownerEmail) {
+      return;
+    }
+    const newUser = {
+      destination: destination,
+      starts_at: range.from,
+      ends_at: range.to,
+      emails_to_invite: emailsToInvite,
+      owner_name: ownerName,
+      owner_email: ownerEmail,
+    };
     try {
-      event.preventDefault();
-      console.log(destination);
-      console.log(emailsToInvite);
-      console.log(range);
-      console.log(ownerName);
-      console.log(ownerEmail);
-
-      if (!destination) {
-        return;
-      }
-      if (!range?.from || !range?.to) {
-        return;
-      }
-      if (emailsToInvite.length === 0) {
-        return;
-      }
-      if (!ownerName || !ownerEmail) {
-        return;
-      }
-
-      const response = await api.post('/trips', {
-        destination: destination,
-        starts_at: range.from,
-        ends_at: range.to,
-        emails_to_invite: emailsToInvite,
-        owner_name: ownerName,
-        owner_email: ownerEmail,
-      });
+      const response = await api.post('/trips', newUser);
       const { tripId } = response.data;
-
       navigate(`/trips/${tripId}`);
     } catch (error) {
-      console.log(error.response.data);
+      console.log(error);
     }
   }
 
@@ -149,6 +142,8 @@ function CreateTripPage() {
           createTrip={createTrip}
           setOwnerName={setOwnerName}
           setOwnerEmail={setOwnerEmail}
+          destination={destination}
+          range={range}
         />
       )}
     </div>

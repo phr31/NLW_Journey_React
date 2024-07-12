@@ -5,6 +5,7 @@ import Button from '../../components/button.tsx';
 interface InviteGuestModalProps {
   closeGuestModal: () => void;
   emailsToInvite: string[];
+  
   addNewEmailToInvite: (event: FormEvent<HTMLFormElement>) => void;
   removeEmailFromInvite: (email: string) => void;
 }
