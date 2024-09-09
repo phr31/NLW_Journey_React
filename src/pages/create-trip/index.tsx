@@ -59,35 +59,33 @@ function CreateTripPage() {
   }
   async function createTrip(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-
     if (!destination) {
       return;
     }
-
-    if (!range?.from || !range.to) {
+    if (!range?.from || !range?.to) {
       return;
     }
-
-    if (emailsToInvite.length == 0) {
+    if (emailsToInvite.length === 0) {
       return;
     }
-
     if (!ownerName || !ownerEmail) {
       return;
     }
-
-    const response = await api.post('/trips', {
+    const newUser = {
       destination: destination,
       starts_at: range.from,
       ends_at: range.to,
       emails_to_invite: emailsToInvite,
       owner_name: ownerName,
       owner_email: ownerEmail,
-    });
-
-    const { tripId } = await response.data;
-
-    navigate(`/trips/${tripId}`);
+    };
+    try {
+      const response = await api.post('/trips', newUser);
+      const { tripId } = response.data;
+      navigate(`/trips/${tripId}`);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

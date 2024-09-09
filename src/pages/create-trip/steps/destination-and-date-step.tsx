@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { format } from 'date-fns';
 import { DateRange, DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
+import { useParams } from 'react-router-dom';
 
 
 interface DestinationAndDateStepProps {
